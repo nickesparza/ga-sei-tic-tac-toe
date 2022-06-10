@@ -1,0 +1,18 @@
+body {
+    text-align: center;
+    background-color: gray;
+}
+#container {
+    width: 650px;
+    height: 650px;
+    display: inline-block;
+}
+
+.square {
+    display: inline-block;
+    border: 2px solid black;
+    width: 200px;
+    height: 200px;
+    margin: 1px;
+    cursor: pointer;
+}

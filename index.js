@@ -143,6 +143,8 @@ const initializeGame = () => {
         //add event listener for click, to run markSquare function
         square.addEventListener('click', markSquare)
     }
+    xPlayerTurn = true
+    playerDisplay = `X`
     document.querySelector('#results').innerHTML = `<p>It is the ${playerDisplay} player's turn</p>`
     turnCount = 0
 }

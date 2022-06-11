@@ -42,30 +42,36 @@ const markSquare = (event) => {
 }
 
 // function to swap player turns and display current player
-    const swapPlayer = () => {
-        xPlayerTurn = !xPlayerTurn
-        if (xPlayerTurn) {
-            document.querySelector('#results').innerHTML = `<p>It is the X player's turn</p>`
-        } else {
-            document.querySelector('#results').innerHTML = `<p>It is the O player's turn</p>`
-        }
+const swapPlayer = () => {
+    xPlayerTurn = !xPlayerTurn
+    if (xPlayerTurn) {
+        document.querySelector('#results').innerHTML = `<p>It is the X player's turn</p>`
+    } else {
+        document.querySelector('#results').innerHTML = `<p>It is the O player's turn</p>`
     }
+}
 
 // function to check for ties
-    const checkTie = () => {
-        if (turnCount >= 9) {
-            // don't need to lock the board because all squares are already filled
-            // turn display to 'it's a tie'
-            document.querySelector('#results').innerHTML = `<p>It's a tie!</p>`
-        } else {
-            console.log(`no tie yet`)
-            return false
-        }
+const checkTie = () => {
+    if (turnCount >= 9) {
+        // don't need to lock the board because all squares are already filled
+        // turn display to 'it's a tie'
+        document.querySelector('#results').innerHTML = `<p>It's a tie!</p>`
+    } else {
+        console.log(`no tie yet`)
+        return false
     }
+}
 
 // function to check for winner
 
 // function to lock the game board at the end of the game
+const lockBoard = () => {
+    for (let i = 0; i < document.querySelectorAll('.square').length; i++) {
+        console.log(`I'm locking down ${document.querySelectorAll('.square')[i].id}`)
+        document.querySelectorAll('.square')[i].removeEventListener('click', markSquare)
+    }
+}
 
 // function to initialize a game
 const initializeGame = () => {

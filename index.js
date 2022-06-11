@@ -23,13 +23,13 @@ const markSquare = (event) => {
     }
 
     // remove event listener from square
-    console.log(event.target.id)
+    // console.log(event.target.id)
     event.target.removeEventListener('click', markSquare)
-    console.log(`event listener removed`)
+    // console.log(`event listener removed`)
 
     // increment turn
     turnCount += 1
-    console.log(turnCount)
+    // console.log(turnCount)
 
     // call function to check for winner
     // YOU CAN CHECK THE INNER HTML OF THE SQUARE'S FIRSTCHILD (THE P TAG)
@@ -38,7 +38,7 @@ const markSquare = (event) => {
  
     // swap player turn if check winner function and check tie function returns false
     if (checkWinner() === false && checkTie() === false) {
-        console.log(`no winners or ties yet`)
+        // console.log(`no winners or ties yet`)
         swapPlayer()
     }
 }
@@ -116,7 +116,7 @@ const checkWinner = () => {
 // function to lock the game board at the end of the game
 const lockBoard = () => {
     for (let i = 0; i < document.querySelectorAll('.square').length; i++) {
-        console.log(`I'm locking down ${document.querySelectorAll('.square')[i].id}`)
+        // console.log(`I'm locking down ${document.querySelectorAll('.square')[i].id}`)
         document.querySelectorAll('.square')[i].removeEventListener('click', markSquare)
     }
 }
@@ -124,7 +124,7 @@ const lockBoard = () => {
 // function to initialize a game
 const initializeGame = () => {
     // clear all existing content from container
-    console.log('the game is afoot')
+    // console.log('the game is afoot')
     while(container.firstChild) {
         container.removeChild(container.firstChild)
     }
@@ -143,7 +143,7 @@ const initializeGame = () => {
         //add event listener for click, to run markSquare function
         square.addEventListener('click', markSquare)
     }
-    document.querySelector('#results').innerHTML = `<p>It is the X player's turn</p>`
+    document.querySelector('#results').innerHTML = `<p>It is the ${playerDisplay} player's turn</p>`
     turnCount = 0
 }
 

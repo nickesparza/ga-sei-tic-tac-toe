@@ -8,14 +8,10 @@ p {
     position: absolute;
 }
 
-#results, #turnDisplay {
-    height: 50px;
-    position: relative;
-}
-
 .hidden {
     display: none;
 }
+
 .square {
     display: inline-block;
     border: 2px solid black;
@@ -23,6 +19,11 @@ p {
     height: 200px;
     margin: 1px;
     cursor: pointer;
+}
+
+#results {
+    height: 50px;
+    position: relative;
 }
 
 #container {

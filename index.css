@@ -2,10 +2,20 @@ body {
     text-align: center;
     background-color: gray;
 }
+
+p {
+    display: inline-block;
+    position: absolute;
+}
+
 #container {
     width: 650px;
     height: 650px;
     display: inline-block;
+}
+
+#reset {
+    display: block;
 }
 
 .square {

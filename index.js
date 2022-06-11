@@ -18,7 +18,7 @@ const markSquare = (event) => {
         event.target.innerHTML = '<p>X</p>'
     } else if (xPlayerTurn === false) {
         // mark an O
-        event.target.innerHTML = '<p>X</p>'
+        event.target.innerHTML = '<p>O</p>'
     }
 
     // remove event listener from square
@@ -34,12 +34,34 @@ const markSquare = (event) => {
     // YOU CAN CHECK THE INNER HTML OF THE SQUARE'S FIRSTCHILD (THE P TAG)
 
     // call function to check for ties
-
-    // swap player turn if check winner function returns false
-
+ 
+    // swap player turn if check winner function and check tie function returns false
+    if (checkTie() === false) {
+        swapPlayer()
+    }
 }
 
+// function to swap player turns and display current player
+    const swapPlayer = () => {
+        xPlayerTurn = !xPlayerTurn
+        if (xPlayerTurn) {
+            document.querySelector('#results').innerHTML = `<p>It is the X player's turn</p>`
+        } else {
+            document.querySelector('#results').innerHTML = `<p>It is the O player's turn</p>`
+        }
+    }
+
 // function to check for ties
+    const checkTie = () => {
+        if (turnCount >= 9) {
+            // don't need to lock the board because all squares are already filled
+            // turn display to 'it's a tie'
+            document.querySelector('#results').innerHTML = `<p>It's a tie!</p>`
+        } else {
+            console.log(`no tie yet`)
+            return false
+        }
+    }
 
 // function to check for winner
 
@@ -65,6 +87,7 @@ const initializeGame = () => {
         //add event listener for click, to run markSquare function
         square.addEventListener('click', markSquare)
     }
+    document.querySelector('#results').innerHTML = `<p>It is the X player's turn</p>`
     turnCount = 0
 }
 

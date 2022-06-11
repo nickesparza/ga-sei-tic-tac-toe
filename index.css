@@ -8,14 +8,9 @@ p {
     position: absolute;
 }
 
-#container {
-    width: 650px;
-    height: 650px;
-    display: inline-block;
-}
-
-#reset {
-    display: block;
+#results, #turnDisplay {
+    height: 50px;
+    position: relative;
 }
 
 .square {
@@ -25,4 +20,16 @@ p {
     height: 200px;
     margin: 1px;
     cursor: pointer;
+}
+
+#container {
+    width: 650px;
+    height: 650px;
+    display: inline-block;
+}
+
+#reset {
+    display: block;
+    position: relative;
+    left: 50%;
 }

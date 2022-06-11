@@ -3,6 +3,7 @@ let turnCount = 0
 
 // variable to define whose turn it is - true is X, false is O
 let xPlayerTurn = true
+let playerDisplay = `X`
 
 // capture reset button element
 resetButton = document.querySelector('#reset')
@@ -15,10 +16,10 @@ const markSquare = (event) => {
     // edit innerText with correct symbol
     if (xPlayerTurn === true) {
         // mark an X
-        event.target.innerHTML = '<p>X</p>'
+        event.target.innerHTML = `<p>${playerDisplay}</p>`
     } else if (xPlayerTurn === false) {
         // mark an O
-        event.target.innerHTML = '<p>O</p>'
+        event.target.innerHTML = `<p>${playerDisplay}</p>`
     }
 
     // remove event listener from square
@@ -36,7 +37,8 @@ const markSquare = (event) => {
     // call function to check for ties
  
     // swap player turn if check winner function and check tie function returns false
-    if (checkTie() === false) {
+    if (checkWinner() === false && checkTie() === false) {
+        console.log(`no winners or ties yet`)
         swapPlayer()
     }
 }
@@ -45,9 +47,12 @@ const markSquare = (event) => {
 const swapPlayer = () => {
     xPlayerTurn = !xPlayerTurn
     if (xPlayerTurn) {
-        document.querySelector('#results').innerHTML = `<p>It is the X player's turn</p>`
+        playerDisplay = 'X'
+        document.querySelector('#results').innerHTML = `<p>It is the ${playerDisplay} player's turn</p>`
     } else {
-        document.querySelector('#results').innerHTML = `<p>It is the O player's turn</p>`
+        playerDisplay = 'O'
+        document.querySelector('#results').innerHTML = `<p>It is the ${playerDisplay} player's turn</p>`
+        
     }
 }
 
@@ -58,12 +63,55 @@ const checkTie = () => {
         // turn display to 'it's a tie'
         document.querySelector('#results').innerHTML = `<p>It's a tie!</p>`
     } else {
-        console.log(`no tie yet`)
         return false
     }
 }
 
 // function to check for winner
+const checkWinner = () => {
+    if (document.querySelector('#square-0').innerHTML === document.querySelector('#square-3').innerHTML &&
+        document.querySelector('#square-0').innerHTML === document.querySelector('#square-6').innerHTML) {
+            lockBoard()
+            document.querySelector('#results').innerHTML = `<p>${playerDisplay} wins!</p>`
+        // check column 2
+        } else if (document.querySelector('#square-1').innerHTML === document.querySelector('#square-4').innerHTML &&
+                document.querySelector('#square-1').innerHTML === document.querySelector('#square-7').innerHTML) {
+                    lockBoard()
+                    document.querySelector('#results').innerHTML = `<p>${playerDisplay} wins!</p>`
+        // check column 3
+        } else if (document.querySelector('#square-2').innerHTML === document.querySelector('#square-5').innerHTML &&
+                document.querySelector('#square-2').innerHTML === document.querySelector('#square-8').innerHTML) {
+                    lockBoard()
+                    document.querySelector('#results').innerHTML = `<p>${playerDisplay} wins!</p>`
+        // check top row
+        } else if (document.querySelector('#square-0').innerHTML === document.querySelector('#square-1').innerHTML &&
+                document.querySelector('#square-0').innerHTML === document.querySelector('#square-2').innerHTML) {
+                    lockBoard()
+                    document.querySelector('#results').innerHTML = `<p>${playerDisplay} wins!</p>`
+        // check middle row
+        } else if (document.querySelector('#square-3').innerHTML === document.querySelector('#square-4').innerHTML &&
+                document.querySelector('#square-3').innerHTML === document.querySelector('#square-5').innerHTML) {
+                    lockBoard()
+                    document.querySelector('#results').innerHTML = `<p>${playerDisplay} wins!</p>`
+        // check bottom row
+        } else if (document.querySelector('#square-6').innerHTML === document.querySelector('#square-7').innerHTML &&
+                document.querySelector('#square-6').innerHTML === document.querySelector('#square-8').innerHTML) {
+                    lockBoard()
+                    document.querySelector('#results').innerHTML = `<p>${playerDisplay} wins!</p>`
+        // check top-left-to-bottom-right diagonal
+        } else if (document.querySelector('#square-0').innerHTML === document.querySelector('#square-4').innerHTML &&
+                document.querySelector('#square-0').innerHTML === document.querySelector('#square-8').innerHTML) {
+                    lockBoard()
+                    document.querySelector('#results').innerHTML = `<p>${playerDisplay} wins!</p>`
+        // check bottom-left-to-top-right diagonal
+        } else if (document.querySelector('#square-6').innerHTML === document.querySelector('#square-4').innerHTML &&
+                document.querySelector('#square-6').innerHTML === document.querySelector('#square-2').innerHTML) {
+                    lockBoard()
+                    document.querySelector('#results').innerHTML = `<p>${playerDisplay} wins!</p>`
+        } else {
+            return false
+        }
+}
 
 // function to lock the game board at the end of the game
 const lockBoard = () => {
@@ -88,6 +136,8 @@ const initializeGame = () => {
         square.classList.add('square')
         // add a unique id
         square.id = `square-${i}`
+        // add hidden p to each square to make innerHTML unique
+        square.innerHTML = `<p class="hidden">${i}</p>`
         // push it to the DOM as a child of container
         container.appendChild(square)
         //add event listener for click, to run markSquare function
@@ -97,7 +147,7 @@ const initializeGame = () => {
     turnCount = 0
 }
 
-// function to reset the game
+// function to reset the game (don't need, can initialize new game instead)
 
 // listener on reset button to reset the game
 resetButton.addEventListener('click', initializeGame)

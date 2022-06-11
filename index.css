@@ -13,6 +13,9 @@ p {
     position: relative;
 }
 
+.hidden {
+    display: none;
+}
 .square {
     display: inline-block;
     border: 2px solid black;

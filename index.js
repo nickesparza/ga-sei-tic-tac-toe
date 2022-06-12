@@ -5,21 +5,32 @@ let turnCount = 0
 let xPlayerTurn = true
 let playerDisplay = `X`
 
+// initialize win counters
+oWinCount = 0
+xWinCount = 0
+
 // capture reset button element
 resetButton = document.querySelector('#reset')
 
 // capture container
 container = document.querySelector('#container')
 
+// capture win tracker element
+winTracker = document.querySelector('#winTracker')
+
 // function to mark square, check for a tie, and check for a winner
 const markSquare = (event) => {
+    // add 'clicked' class to target
+    event.target.classList.add('clicked')
+    // remove 'unclicked' class from target
+    event.target.classList.remove('unclicked')
     // edit innerText with correct symbol
     if (xPlayerTurn === true) {
         // mark an X
-        event.target.innerHTML = `<p>${playerDisplay}</p>`
+        event.target.innerHTML = `<p class="markerX">${playerDisplay}</p>`
     } else if (xPlayerTurn === false) {
         // mark an O
-        event.target.innerHTML = `<p>${playerDisplay}</p>`
+        event.target.innerHTML = `<p class="markerO">${playerDisplay}</p>`
     }
 
     // remove event listener from square
@@ -29,6 +40,7 @@ const markSquare = (event) => {
 
     // increment turn
     turnCount += 1
+
     // console.log(turnCount)
 
     // call function to check for winner
@@ -69,45 +81,54 @@ const checkTie = () => {
 
 // function to check for winner
 const checkWinner = () => {
+    // check column 1
     if (document.querySelector('#square-0').innerHTML === document.querySelector('#square-3').innerHTML &&
         document.querySelector('#square-0').innerHTML === document.querySelector('#square-6').innerHTML) {
             lockBoard()
             document.querySelector('#results').innerHTML = `<p>${playerDisplay} wins!</p>`
+            trackWins()
         // check column 2
         } else if (document.querySelector('#square-1').innerHTML === document.querySelector('#square-4').innerHTML &&
                 document.querySelector('#square-1').innerHTML === document.querySelector('#square-7').innerHTML) {
                     lockBoard()
                     document.querySelector('#results').innerHTML = `<p>${playerDisplay} wins!</p>`
+                    trackWins()
         // check column 3
         } else if (document.querySelector('#square-2').innerHTML === document.querySelector('#square-5').innerHTML &&
                 document.querySelector('#square-2').innerHTML === document.querySelector('#square-8').innerHTML) {
                     lockBoard()
                     document.querySelector('#results').innerHTML = `<p>${playerDisplay} wins!</p>`
+                    trackWins()
         // check top row
         } else if (document.querySelector('#square-0').innerHTML === document.querySelector('#square-1').innerHTML &&
                 document.querySelector('#square-0').innerHTML === document.querySelector('#square-2').innerHTML) {
                     lockBoard()
                     document.querySelector('#results').innerHTML = `<p>${playerDisplay} wins!</p>`
+                    trackWins()
         // check middle row
         } else if (document.querySelector('#square-3').innerHTML === document.querySelector('#square-4').innerHTML &&
                 document.querySelector('#square-3').innerHTML === document.querySelector('#square-5').innerHTML) {
                     lockBoard()
                     document.querySelector('#results').innerHTML = `<p>${playerDisplay} wins!</p>`
+                    trackWins()
         // check bottom row
         } else if (document.querySelector('#square-6').innerHTML === document.querySelector('#square-7').innerHTML &&
                 document.querySelector('#square-6').innerHTML === document.querySelector('#square-8').innerHTML) {
                     lockBoard()
                     document.querySelector('#results').innerHTML = `<p>${playerDisplay} wins!</p>`
+                    trackWins()
         // check top-left-to-bottom-right diagonal
         } else if (document.querySelector('#square-0').innerHTML === document.querySelector('#square-4').innerHTML &&
                 document.querySelector('#square-0').innerHTML === document.querySelector('#square-8').innerHTML) {
                     lockBoard()
                     document.querySelector('#results').innerHTML = `<p>${playerDisplay} wins!</p>`
+                    trackWins()
         // check bottom-left-to-top-right diagonal
         } else if (document.querySelector('#square-6').innerHTML === document.querySelector('#square-4').innerHTML &&
                 document.querySelector('#square-6').innerHTML === document.querySelector('#square-2').innerHTML) {
                     lockBoard()
                     document.querySelector('#results').innerHTML = `<p>${playerDisplay} wins!</p>`
+                    trackWins()
         } else {
             return false
         }
@@ -118,6 +139,18 @@ const lockBoard = () => {
     for (let i = 0; i < document.querySelectorAll('.square').length; i++) {
         // console.log(`I'm locking down ${document.querySelectorAll('.square')[i].id}`)
         document.querySelectorAll('.square')[i].removeEventListener('click', markSquare)
+    }
+}
+
+// function to increment win trackers
+const trackWins = () => {
+    if (xPlayerTurn === true) {
+        xWinCount += 1
+        console.log(`X has won ${xWinCount} times`)
+        document.querySelector('#xWins').innerText = xWinCount
+    } else {
+        oWinCount += 1
+        document.querySelector('#oWins').innerText = oWinCount
     }
 }
 
@@ -134,6 +167,8 @@ const initializeGame = () => {
         const square = document.createElement('div')
         // add the square class
         square.classList.add('square')
+        // add the unclicked class
+        square.classList.add('unclicked')
         // add a unique id
         square.id = `square-${i}`
         // add hidden p to each square to make innerHTML unique

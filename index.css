@@ -1,11 +1,14 @@
-body {
-    text-align: center;
-    background-color: gray;
+html {
+    height: 100%;
 }
 
-p {
-    display: inline-block;
-    position: absolute;
+body {
+    text-align: center;
+    background: linear-gradient(#4b52b4, #444a86);
+    background-repeat: no-repeat;
+    color: white;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 1px;
 }
 
 .hidden {
@@ -14,26 +17,55 @@ p {
 
 .square {
     display: inline-block;
-    border: 2px solid black;
+    border: 2px solid gainsboro;
+    border-radius: 10px;
     width: 200px;
     height: 200px;
     margin: 1px;
     cursor: pointer;
 }
 
+.unclicked:hover {
+    background-color: gainsboro;
+}
+
+.clicked {
+    background-color: teal;
+}
+
+.markerX, .markerO {
+    font-family: 'Courier New', Courier, monospace;
+    display: inline-block;
+    position: absolute;
+    font-size: 50px;
+    margin: auto;
+}
+
 #results {
-    height: 50px;
-    position: relative;
+    margin: auto;
 }
 
 #container {
     width: 650px;
     height: 650px;
-    display: inline-block;
+    margin: auto;
 }
 
 #reset {
     display: block;
-    position: relative;
-    left: 50%;
+    margin: auto;
+    padding: 12px 20px;
+    font-size: large;
+    background-color: yellow;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#reset:hover {
+    background-color: #bbbb2a;
+}
+
+#reset:active {
+    background-color: #86861f;
 }
